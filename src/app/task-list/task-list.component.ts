@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {Task} from "../task/task";
 import {FormsModule} from "@angular/forms";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    MatIconModule
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
@@ -42,13 +44,15 @@ export class TaskListComponent {
   }
 
   addButtonClicked(taskTitle: string) {
-    let idCount = this.tasks.length + 1;
-    console.log('id count is', idCount);
-    this.tasks.push({
-      id: idCount,
-      title: taskTitle,
-      completed: false
-    })
+    if(taskTitle){
+      let idCount = this.tasks.length + 1;
+      console.log('id count is', idCount);
+      this.tasks.push({
+        id: idCount,
+        title: taskTitle,
+        completed: false
+      })
+    }
     console.log('The tasks added', this.tasks);
   }
 
@@ -56,11 +60,15 @@ export class TaskListComponent {
     this.value = '';
   }
 
-  taskItemClicked(){
+/*  taskItemClicked(){
     this.isDeleteButtonEnabled = !this.isDeleteButtonEnabled;
-  }
+  }*/
 
-  deleteButtonClicked(){
-    
+  removeTask(selectedTask: Task){
+    this.isDeleteButtonEnabled = true;
+    this.tasks = this.tasks.filter(task =>
+    task !== selectedTask
+    )
+    this.isDeleteButtonEnabled = false;
   }
 }

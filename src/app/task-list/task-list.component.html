@@ -1,12 +1,13 @@
 
 
 <input type="text" placeholder="Add a task here" [(ngModel)]="value" />
-<button (click)="addButtonClicked(value)">Add</button>
-<button (click)="clearButtonClicked()">Clear</button>
+
+<button (click)="addButtonClicked(value)"><mat-icon>add</mat-icon></button>
+<button (click)="clearButtonClicked()"><mat-icon>cancel</mat-icon></button>
 <h2>Task List</h2>
 @for (task of tasks; track task.id){
   <ul>
-    <li (click)="taskItemClicked()">
+    <li>
       <input type="checkbox"
              [checked]="task.completed"
              (change)="toggleComplete(task)"
@@ -14,11 +15,9 @@
     <span [class.completed]="task.completed">
       {{task.title}}
     </span>
-      @if(isDeleteButtonEnabled){
-        <button (click)="deleteButtonClicked(value)">
-          DELETE
-        </button>
-      }
+      <button class="delete-button" mat-icon-button (click)="removeTask(task)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </li>
 
   </ul>

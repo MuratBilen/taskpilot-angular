@@ -24,6 +24,10 @@ input[type=checkbox] {
   transform: scale(1.2);
 }
 
+.delete-button{
+  margin-left: 32px
+}
+
 .completed {
   text-decoration: line-through;
   color: #9ca3af;
