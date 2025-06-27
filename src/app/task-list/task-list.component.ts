@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import {Task} from "../task/task";
 import {FormsModule} from "@angular/forms";
-import {MatIconModule} from "@angular/material/icon";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
+import {TaskItemComponent} from "../task-item/task-item.component";
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
   imports: [
+    MatIcon,
     FormsModule,
-    MatIconModule
+    TaskItemComponent
+
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'

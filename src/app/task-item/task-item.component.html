@@ -1,0 +1,19 @@
+<ul>
+  <li>
+    <input type="checkbox"
+           [checked]="task().completed"
+           (change)="toggleClicked()"
+    />
+    <span [class.completed]="task().completed">
+      {{task().title}}
+    </span>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert
+      </mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Edit</button>
+      <button mat-menu-item (click)="deleteClicked()">Delete</button>
+    </mat-menu>
+  </li>
+</ul>
