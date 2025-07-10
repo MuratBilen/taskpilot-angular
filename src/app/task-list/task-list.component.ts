@@ -22,6 +22,7 @@ export class TaskListComponent {
   value: string = '';
 
   isDeleteButtonEnabled: boolean = false;
+  isEditClicked: boolean = false;
 
   tasks: Array<Task> = [{
     id: 1,
@@ -63,15 +64,19 @@ export class TaskListComponent {
     this.value = '';
   }
 
-/*  taskItemClicked(){
-    this.isDeleteButtonEnabled = !this.isDeleteButtonEnabled;
-  }*/
+
 
   removeTask(selectedTask: Task){
-    this.isDeleteButtonEnabled = true;
     this.tasks = this.tasks.filter(task =>
     task !== selectedTask
     )
-    this.isDeleteButtonEnabled = false;
   }
+
+  editTask(editedTask: Task) {
+    this.isEditClicked = true;
+    this.tasks = this.tasks.map(task =>
+      task.id === editedTask.id ? {... task, title: editedTask.title} : task
+    )
+  }
+
 }

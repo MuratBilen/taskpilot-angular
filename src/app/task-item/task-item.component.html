@@ -1,18 +1,36 @@
 <ul>
   <li>
-    <input type="checkbox"
-           [checked]="task().completed"
-           (change)="toggleClicked()"
-    />
-    <span [class.completed]="task().completed">
+    @if(!isEditClicked){
+      <input type="checkbox"
+             [checked]="task().completed"
+             (change)="toggleClicked()"
+      />
+      <span [class.completed]="task().completed">
       {{task().title}}
     </span>
+    }
+    @else(){
+      <div class="editInput">
+        <input type="text"
+               [(ngModel)]="editedTitle"
+        />
+      </div>
+    }
+
     <button mat-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert
       </mat-icon>
     </button>
+    @if(isEditClicked){
+      <button mat-button (click)="saveTask()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-button (click)="cancel()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    }
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Edit</button>
+      <button mat-menu-item (click)="editClicked()">Edit</button>
       <button mat-menu-item (click)="deleteClicked()">Delete</button>
     </mat-menu>
   </li>

@@ -1,13 +1,20 @@
+<input type="text" placeholder="Add a task here" [(ngModel)]="value"/>
 
-
-<input type="text" placeholder="Add a task here" [(ngModel)]="value" />
-
-<button (click)="addButtonClicked(value)"><mat-icon>add</mat-icon></button>
-<button (click)="clearButtonClicked()"><mat-icon>cancel</mat-icon></button>
+<button (click)="addButtonClicked(value)">
+  <mat-icon>add</mat-icon>
+</button>
+<button (click)="clearButtonClicked()">
+  <mat-icon>cancel</mat-icon>
+</button>
 
 <h2>Task List</h2>
-@for (task of tasks; track task.id){
-  <app-task-item [task]="task" (deleteEvent)="removeTask(task)" (toggleEvent)="toggleComplete(task)"></app-task-item>
 
+
+  @for (task of tasks; track task.id) {
+    <app-task-item [task]="task" (deleteEvent)="removeTask(task)" (toggleEvent)="toggleComplete(task)"
+                   (editEvent)="editTask($event)">
+    </app-task-item>
 }
+
+
 
