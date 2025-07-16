@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Task} from "../task/task";
 import {FormsModule} from "@angular/forms";
 import {MatIcon, MatIconModule} from "@angular/material/icon";
@@ -16,35 +16,25 @@ import {TaskItemComponent} from "../task-item/task-item.component";
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit {
   //TODO Add linting
 
   value: string = '';
 
   isDeleteButtonEnabled: boolean = false;
   isEditClicked: boolean = false;
+  tasks: Array<Task> = [];
 
-  tasks: Array<Task> = [{
-    id: 1,
-    title: 'firstTask',
-    completed: false
-  },
-    {
-      id: 2,
-      title: 'secondTask',
-      completed: false
-    },
-    {
-      id: 3,
-      title: 'thirdTask',
-      completed: false
-    }
-]
+
+  ngOnInit(): void {
+    this.tasks = JSON.parse(localStorage?.getItem("task-list") ?? '');
+  }
 
   toggleComplete(selectedTask:Task){
     this.tasks = this.tasks.map(task =>
     task.id === selectedTask.id ? {... task, completed: !task.completed} : task
     )
+    localStorage.setItem("task-list", JSON.stringify(this.tasks));
   }
 
   addButtonClicked(taskTitle: string) {
@@ -56,7 +46,9 @@ export class TaskListComponent {
         title: taskTitle,
         completed: false
       })
+      localStorage.setItem("task-list", JSON.stringify(this.tasks));
     }
+
     console.log('The tasks added', this.tasks);
   }
 
@@ -70,13 +62,16 @@ export class TaskListComponent {
     this.tasks = this.tasks.filter(task =>
     task !== selectedTask
     )
+    localStorage.setItem("task-list", JSON.stringify(this.tasks));
   }
 
   editTask(editedTask: Task) {
     this.isEditClicked = true;
+
     this.tasks = this.tasks.map(task =>
       task.id === editedTask.id ? {... task, title: editedTask.title} : task
     )
+    localStorage.setItem("task-list", JSON.stringify(this.tasks));
   }
 
 }
